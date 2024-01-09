@@ -19,15 +19,28 @@ configuration:
   working_directory: ".ytdl-sub-working-directory"
 
 presets:
+  "Sponsor Block":
+    chapters:
+      sponsorblock_categories:
+        #- "intro"
+        #- "outro"
+        - "selfpromo"
+        - "preview"
+        - "interaction"
+        - "sponsor"
+        - "music_offtopic"
+      remove_sponsorblock_categories: "all"
+      force_key_frames: False
+
   # TODO: Could add quality overrides to drop to 1080p/720p for daily uploaders.
-  # Channels that post many times per week (daily or every couple days).
+  # Channels that post many times per week.
   "Updated Daily":
     date_range:
       after: "today-2weeks"
 
     output_options:
       keep_files_after: "today-2weeks"
-      #keep_max_files: 
+      #keep_max_files:
 
   # Channels that post 2-4ish times per month.
   "Updated Weekly":
@@ -36,13 +49,13 @@ presets:
 
     output_options:
       keep_files_after: "today-1months"
-      #keep_max_files: 
+      #keep_max_files:
 
-  # Channels that every month or so.
+  # Channels that post once a month or so.
   "Updated Monthly":
     date_range:
       after: "today-4months"
 
     output_options:
       keep_files_after: "today-4months"
-      #keep_max_files: 
+      #keep_max_files:
