@@ -1,0 +1,48 @@
+# Bare-bones config. Here are some useful links to get started:
+#   Walk-through Guide:  https://github.com/jmbannon/ytdl-sub/wiki/1.-Introduction
+#   Config Examples:     https://github.com/jmbannon/ytdl-sub/tree/master/examples
+#   Prebuilt Presets:    https://ytdl-sub.readthedocs.io/en/latest/presets.html
+#   Config Docs:         https://ytdl-sub.readthedocs.io/en/latest/config.html
+#
+# The subscriptions in `subscriptions.yaml` uses prebuilt presets which do not require
+# any additions to this config. They can be downloaded using the command:
+#
+#   ytdl-sub --config config.yaml sub subscriptions.yaml
+#
+# Or dry-ran with:
+#
+#   ytdl-sub --dry-run --config config.yaml sub subscriptions.yaml
+#
+# See the documentation above on how to build your own custom presets.
+#
+configuration:
+  working_directory: ".ytdl-sub-working-directory"
+
+presets:
+  # TODO: Could add quality overrides to drop to 1080p/720p for daily uploaders.
+  # Channels that post many times per week (daily or every couple days).
+  "Updated Daily":
+    date_range:
+      after: "today-2weeks"
+
+    output_options:
+      keep_files_after: "today-2weeks"
+      #keep_max_files: 
+
+  # Channels that post 2-4ish times per month.
+  "Updated Weekly":
+    date_range:
+      after: "today-1months"
+
+    output_options:
+      keep_files_after: "today-1months"
+      #keep_max_files: 
+
+  # Channels that every month or so.
+  "Updated Monthly":
+    date_range:
+      after: "today-4months"
+
+    output_options:
+      keep_files_after: "today-4months"
+      #keep_max_files: 

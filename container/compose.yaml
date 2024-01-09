@@ -1,0 +1,60 @@
+volumes:
+  # Example: I have "C:\Media" shared as "\\192.168.1.100\Media", it contains a "YouTube" directory with some subdirectories.
+  cifs-ytdl-sub-config:
+    driver: local
+    driver_opts:
+      type: cifs
+      device: //<server_ip>/Media/Youtube/ytdl-sub
+      o: "username=<username>,password=<password>,nocase"
+
+  cifs-media-youtube-shows:
+    driver: local
+    driver_opts:
+      type: cifs
+      device: //<server_ip>/Media/Youtube/Shows
+      o: "username=<username>,password=<password>,nocase"
+
+  cifs-media-youtube-music:
+    driver: local
+    driver_opts:
+      type: cifs
+      device: //<server_ip>/Media/Youtube/Music
+      o: "username=<username>,password=<password>,nocase"
+
+  cifs-media-movies:
+    driver: local
+    driver_opts:
+      type: cifs
+      device: //<server_ip>/Media/Movies
+      o: "username=<username>,password=<password>,nocase"
+
+services:
+  ytdl-sub:
+    image: ghcr.io/jmbannon/ytdl-sub-gui:latest
+    container_name: ytdl-sub
+    privileged: true
+    environment:
+      # NOTE: If your shares are hosted on a linux machine change PUID and PGID to the local owner of those directories.
+      - PUID=0
+      - PGID=0
+      - TZ=America/Chicago
+    volumes:
+      # NOTE: If you want to change any volume settings and already composed a ytdl-sub container, you need to run 
+      #    "sudo docker compose down -v -f" before re-composing. If you don't and the volumes are stuck you might need to
+      #    manually delete them. Run "docker volume --help" to get started (hint: docker volume ls, docker volume prune or rm).
+
+      # Using SMB shares
+      - cifs-ytdl-sub-config:/config
+      - cifs-media-youtube-shows:/tv_shows
+      - cifs-media-movies:/movies
+      - cifs-media-youtube-music:/music
+      
+      # Using local directories, e.g. in Windows. Stick with forward slashes and keep the double quotes.
+      #- "c:/containers/ytdl-sub/config:/config"
+      #- "c:/media/youtube/tv_shows:/tv_shows"
+      #- "c:/media/youtube/movies:/movies"
+      #- "c:/media/youtube/music:/music"
+
+    ports:
+      - 8443:8443
+    restart: unless-stopped

@@ -1,0 +1,149 @@
+# subscriptions.yaml:
+# Everything in here can be downloaded using the command:
+#   ytdl-sub sub subscriptions.yaml
+#   https://ytdl-sub.readthedocs.io/en/latest/introduction.html
+#   https://github.com/jmbannon/ytdl-sub/wiki/5.-Optimizing-Your-First-Config
+
+# __preset__ is a place to define global overrides for all subscriptions
+__preset__:
+  overrides:
+    # Root folder of all ytdl-sub TV Shows
+    # Modify to full path if running locally, leave as "/tv_shows" if containerized.
+    tv_show_directory: "/tv_shows"
+
+    # Root folder of all ytdl-sub Music
+    # Modify to full path if running locally, leave as "/music" if containerized.
+    music_directory: "/music"
+
+    # Root folder of all ytdl-sub Music Videos
+    # Modify to full path if running locally, leave as "/music_videos" if containerized.
+    music_video_directory: "/music_videos"
+
+    # For 'Only Recent' preset, only keep vids within this range and limit
+    # NOTE: Using Daily, Weekly, Monthly for finer per-channel control.
+    #only_recent_date_range: "2months"
+    #only_recent_max_files: 30
+
+  # Pass any arg directly to yt-dlp's Python API
+  ytdl_options:
+    # NOTE: Don't mess with contents of cookie.txt, ytdl-sub generates one and uses it for tracking.
+    # Modify to full path if running locally, leave as "/config/cookie.txt" if containerized.
+    cookiefile: "/config/cookie.txt"
+
+  # TODO: Doesn't work with webm, investigate switching to mp4 or mkv containers.
+  #embed_thumbnail: True
+
+  chapters:
+  # Embedded Chapter Fields
+    embed_chapters: True
+    allow_chapters_from_comments: False
+    remove_chapters_regex:
+      - "Intro"
+      - "Outro"
+
+    # Sponsorblock Fields
+    sponsorblock_categories:
+      - "outro"
+      - "selfpromo"
+      - "preview"
+      - "interaction"
+      - "sponsor"
+      - "music_offtopic"
+      - "intro"
+    remove_sponsorblock_categories: "all"
+    force_key_frames: False
+
+###################################################################
+# Subscriptions
+# Choose the player you intend to use by setting the top-level key to be either:
+#   - Plex TV Show by Date:
+#   - Jellyfin TV Show by Date:
+#   - Kodi TV Show by Date:
+Jellyfin TV Show by Date:
+
+# NOTE: Start with a channel or two under "Updated Daily" to test. Downloading and processing metadata takes a bit of time.
+
+  Updated Daily:
+    = Makers: # "Makers" is the genre these will be filed under.
+      "Adam Savage's Tested": "https://www.youtube.com/@tested"
+
+    = Technology:
+      "JayzTwoCents": "https://www.youtube.com/@Jayztwocents"
+      "Gamers Nexus": "https://www.youtube.com/@GamersNexus"
+      "Digital Foundry": "https://www.youtube.com/@DigitalFoundry"
+
+  Updated Weekly:
+    = Automotive:
+      "Doug DeMuro": "https://www.youtube.com/@DougDeMuro"
+      "savagegeeese": "https://www.youtube.com/@savagegeese"
+
+      # Can combine multiple channels into one "show".
+      "Mighty Car Mods": 
+        - "https://www.youtube.com/mightycarmods"
+        - "https://www.youtube.com/@mcmtv2"
+
+      "Car Wizard": "https://www.youtube.com/@CarWizard"
+      "The Skid Factory": "https://www.youtube.com/@theskidfactory"
+      "Benny's Custom Works": "https://www.youtube.com/@BennysCustomWorks"
+      "Rich Rebuilds": "https://www.youtube.com/@RichRebuilds"
+
+    = Gaming:
+      "Modern Vintage Gamer (MVG)": "https://www.youtube.com/@ModernVintageGamer"
+
+    = Home Improvement:
+      "Home Renovision DIY": "https://www.youtube.com/@HomeRenoVisionDIY"
+      "This Old House": "https://www.youtube.com/@thisoldhouse"
+  
+  Updated Monthly:
+    = Gaming:
+      "Stop Skeletons From Fighting": "https://www.youtube.com/@StopSkeletonsFromFighting"
+      "Game Sack": "https://www.youtube.com/@GameSack"
+
+    = Technology:
+      "Technology Connections": "https://www.youtube.com/@TechnologyConnections"
+      "Techmoan": "https://www.youtube.com/@Techmoan"
+
+  # Playlists of videos I want stored without a time limit.
+  = Automotive:
+    "Mighty Car Mods": "https://www.youtube.com/playlist?list=PLxbi07uizHioiRCNAXllKSb1sPtRYQxks"
+
+  = Home Improvement:
+    "Home Renovision DIY": "https://www.youtube.com/playlist?list=PLxbi07uizHirZ8O7Hb4QxEBYOwRUjZavc"
+
+  #= Music:
+    # TV show subscriptions can support multiple urls and store in the same TV Show
+    #"Rick Beato":
+      #- "https://www.youtube.com/@RickBeato"
+      #- "https://www.youtube.com/@rickbeato240"
+
+###################################################################
+# Subscriptions nested under these will use the various prebuilt
+# music presets
+# YouTube Releases:
+#   = Jazz:  # Sets genre tag to "Jazz"
+#     "Thelonious Monk": "https://www.youtube.com/@theloniousmonk3870/releases"
+# 
+# YouTube Full Albums:
+#   = Lofi:
+#     "Game Chops": "https://www.youtube.com/playlist?list=PLBsm_SagFMmdWnCnrNtLjA9kzfrRkto4i"
+# 
+# SoundCloud Discography:
+#   = Chill Hop:
+#     "UKNOWY": "https://soundcloud.com/uknowymunich"
+#   = Synthwave:
+#     "Lazerdiscs Records": "https://soundcloud.com/lazerdiscsrecords"
+#     "Earmake": "https://soundcloud.com/earmake"
+# 
+# Bandcamp:
+#   = Lofi:
+#     "Emily Hopkins": "https://emilyharpist.bandcamp.com/"
+
+###################################################################
+# Can choose between:
+#   - Plex Music Videos:
+#   - Jellyfin Music Videos:
+#   - Kodi Music Videos:
+#"Plex Music Videos":
+#  = Pop:  # Sets genre tag to "Pop"
+#    "Rick Astley": "https://www.youtube.com/playlist?list=PLlaN88a7y2_plecYoJxvRFTLHVbIVAOoc"
+#    "Michael Jackson": "https://www.youtube.com/playlist?list=OLAK5uy_mnY03zP6abNWH929q2XhGzWD_2uKJ_n8E"
