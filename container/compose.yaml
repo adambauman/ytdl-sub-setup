@@ -32,7 +32,7 @@ services:
   ytdl-sub:
     image: ghcr.io/jmbannon/ytdl-sub-gui:latest
     container_name: ytdl-sub
-    privileged: true
+    privileged: true # Required if mounting network shares, can be false otherwise.
     environment:
       # NOTE: If your shares are hosted on a linux machine change PUID and PGID to the local owner of those directories.
       - PUID=0
